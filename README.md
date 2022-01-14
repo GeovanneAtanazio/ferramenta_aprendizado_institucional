@@ -348,6 +348,308 @@ A chave ``"url"`` define um link para ser adicionado ao ícone do GitHub na barr
     	}
 	```
 
+### Produzindo capítulos 
+
+Cada capítulo deverá ser escrito em um arquivo Markdown — arquivos Markdown são definidos pela extensão `.md` — salvos no diretório `./pages`, como foi definido no arquivo ``book.json``. Para que o GitBook-CLI consiga enxergar o capítulo criado, é preciso adicioná-lo ao arquivo responsável pelo sumário, usando a seguinte notação:
+```
+# Summary 
+
+* [Nome do Manual](apresentacao.md)
+* [Introdução](introducao.md)
+```
+ O texto informado dentro dos colchetes é a forma com que o capítulo será referenciado no menu do GitBook-CLI. Já o texto contido nos parenteses é o nome do arquivo referente ao capítulo. Neste projeto existem dois capítulos criados previamente: `apresentacao.md` e `introducao.md`. O primeiro, tem o objetivo de explicar de forma rápida a existência do manual criado. Já o segundo, guarda o conteúdo que introduz o tema central do manual criado — recomenda-se, que novos capítulos sejam criados somente após esses.  
+
+Seja para uso de algum recurso do GitBook-CLI ou para facilitar a compreensão do assunto abordado por determinado capítulo, é interessante ter um lugar que permita salvar arquivos, para isso existe o diretório `./pages/public/`. Dentro dele, é possível criar sub-diretórios que ajudem na organização dos arquivos utilizados pelo projeto.
+
+#### Escrevendo com Markdown
+
+Markdown é uma linguagem de marcação usada para padronizar e facilitar formatação de textos na web. Para utilizar o GitBook-CLI, mais especificamente para escrever capítulos, é importante saber trabalhar com Markdown. A seguir, serão apresentados comandos e alguns exemplos de uso.
+
+##### Titulação 
+A titulação em Markdown é graduada em 6 níveis e é feita utilizando o símbolo de cerquilha `#` a frente do texto e com espaçamento; a cada cerquilha adicionada o texto varia do maior tamanho, apenas uma cerquilha, até o menor, com 6 cerquilhas. Essas graduações de títulos geralmente são utilizadas para gerar seções e subseções.
+
+- Exemplo da escrita: 
+	```
+	# Título 1
+    ## Título 2
+    ### Título 3
+    #### Título 4
+    ##### Título 5
+    ###### Título 6
+	```
+- Exemplo da saída: 
+    # Título 1
+    ## Título 2
+    ### Título 3
+    #### Título 4
+    ##### Título 5
+    ###### Título 6
+
+ $ ~ $    
+
+<a id="enfase"></a>
+##### Ênfase (Negrito ou Itálico)
+
+
+Para adicionar ênfase ao conteúdo que será escrito, usa-se o asterisco `*` ou traço-baixo (underline) `_`:
+
+- Exemplo da escrita: 
+	```
+	*Usa-se apenas um asterisco para itálico*
+    _Usa-se apenas um underline para itálico_
+
+    **Usa-se dois asteriscos para negrito**
+    __Usa-se dois underlines para negrito__
+	```
+- Exemplo da saída: 
+
+    *Usa-se apenas um asterisco para itálico*
+    _Usa-se apenas um underline para itálico_
+ $ ~ $     
+     **Usa-se dois asteriscos para negrito**
+    __Usa-se dois underlines para negrito__
+ $ ~ $    
+##### Links 
+
+Existem duas formas de inserir link em Markdown, através de um link direto ou usando um texto-âncora:
+ 
+###### Link direto
+Envolva o endereço da web entre `<` e `>`. O endereço ficará visível e será clicável pelo usuário.
+
+- Exemplo da escrita: 
+	```
+	Este é um link direto <https://pipz.com/>.
+	```
+- Exemplo da saída: 
+    Este é um link direto <https://pipz.com/>.
+ $ ~ $  
+###### Texto-âncora
+ Utilize os caracteres `[]()`, adicionando entre chaves o texto que você quer que apareça, e entre os parênteses, o endereço de destino.
+
+- Exemplo da escrita: 
+	```
+	Este é um [link em formato de texto](https://exemplo.com/).
+
+	```
+- Exemplo da saída: 
+    Este é um [link em formato de texto](https://exemplo.com/).
+ $ ~ $  
+###### Referência cruzada (âncora nomeada)
+
+Trata-se de outra forma de texto âncora, utilizada para fazer referência a outros elementos do próprio arquivo Markdown. Para isso, basta inserir uma tag `<a>` com o id para identificar aquela seção e então usá-lo entre os parenteses como "endereço interno de destino".
+
+- Exemplo da escrita: 
+  Ao utilizar a linha de código abaixo  (_Escrita da âncora_) próximo do título da Seção "_Ênfase_", podemos então usar o seu id entre `<` e `>` (_Chamada_) para navegar até ela.
+  
+
+  ###### _Escrita da âncora_
+	```
+	
+    <a id="enfase"></a>
+
+	```
+    ###### _Chamada_
+    ```
+	
+    Este é uma [referência cruzada que leva para a seção ênfase](<#enfase>).
+
+	```
+
+- Exemplo da saída: 
+
+  Este é uma [referência cruzada que leva para a seção ênfase](<#enfase>).
+##### Listas de itens
+
+No Markdown existem dois tipos de listas, as não ordenadas e as ordenadas.
+
+###### Listas não ordenadas
+
+Para listas não ordenadas, utilize um asterisco `*` ou `-` na frente do item da lista. Nas listas em Markdown a indentação do item gera subitens.
+- Exemplo da escrita:
+	```
+    * Item 1
+    * Item 2
+    	* Item 3	
+	* Item 4
+	```
+- Exemplo da saída: 
+  
+    * Item 1
+    * Item 2
+    	* Item 3	
+	* Item 4
+  
+###### Listas ordenadas
+
+Para listas ordenadas, utilize o número do item seguido de ponto `.`. Nas listas em Markdown a indentação do item gera subitens  :
+- Exemplo da escrita:
+
+    ```
+    1. Item 1
+    2. Item 2
+    3. Item 3
+       3.1. Item 3.1
+	4. Item 4
+    ```
+- Exemplo da saída: 
+     1. Item 1
+    2. Item 2
+    3. Item 3
+       3.1. Item 3.1
+	4. Item 4
+
+##### Imagens
+
+O código para inserir uma imagem no conteúdo é semelhante ao código de inserir links-âncora, adicionando um ponto de exclamação `!` no início do código.
+
+[//]: #teste 
+
+- Exemplo da escrita:
+   
+    ```
+      ![titulo_da_imagem](https://dtdsgp.com/wp-content/uploads/2020/05/news1.png)
+    ```
+
+- Exemplo da saída: 
+ ![Esta é uma imagem inserida a partir do link](https://dtdsgp.com/wp-content/uploads/2020/05/news1.png)
+
+ ##### Citação (Quote)
+
+ Para transformar um texto em uma citação ou comentário, semelhante ao código HTML `<blockquote>`, utilize o sinal `>` no início da linha que será formatada.
+
+ - Exemplo da escrita:
+
+    ```
+    >Este é um *blockquote*. O sinal usado abre e fecha este código no HTML. 
+    >Para adicionar mais uma linha à citação, basta teclar Enter para um novo
+    >código sinal. Isso gerará um novo parágrafo dentro do *blockquote*.
+    >Códigos de **negrito**, _itálico_ e <https://links.com> funcionam aqui.    
+    ```
+- Exemplo da saída: 
+    >Este é um *blockquote*. O sinal usado abre e fecha este código no HTML. 
+    >Para adicionar mais uma linha à citação, basta teclar Enter para um novo
+    >código sinal. Isso gerará um novo parágrafo dentro do *blockquote*.
+    >Códigos de **negrito**, _itálico_ e <https://links.com> funcionam aqui.  
+
+##### Código (Code Highlight)
+
+Há dois modos de adicionar trechos de código ao Markdown, por código em linha ou múltiplas linhas de código.
+
+###### *Código em linha (inline)* 
+Adicione um acento grave `ˋ` no início e no final do código.
+
+- Exemplo da escrita: 
+   	```
+	Esta é uma linha que contém um `código`.
+	```
+- Exemplo da saída: 
+Esta é uma linha que contém um `código`.
+  $ ~ $
+###### *Múltiplas linhas de código*
+Envolva as linhas de código com três acentos graves ``ˋˋˋ`` ou três tils ``~~~``.
+   $ ~ $
+
+ - Exemplo da escrita:
+
+ 	```
+		```
+		Esta é uma linha de código, códigos de **negrito**, _itálico_ e <https://links.com> não funcionam aqui.  
+		```
+	```
+	
+    
+- Exemplo da saída: 
+  
+    ```
+    	Esta é uma linha de código, códigos de **negrito**, _itálico_ e <https://links.com> não funcionam aqui.
+    ```
+
+##### Salto de linha
+
+Para gerar uma quebra de linha no documento existem algumas alternativas, uma delas que funciona muito bem tanto para o site do GitBook como para a geração do PDF é demonstrada a seguir.
+
+- Exemplo da escrita:
+  
+	```
+	O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão.
+	$ ~ $
+	O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500.
+	```
+
+- Exemplo da saída:
+	
+	O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão.
+	$ ~ $
+	O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500.
+
+
+##### Tabela
+
+Para criar tabelas utiliza-se ``|`` para delimitar as colunas e o hífen ``-`` na segunda linha para indicar que a primeira linha contém os títulos das colunas.
+ - Exemplo da escrita:
+    ```
+    Exemplo   | Valor do exemplo
+    --------- | ------
+    Exemplo 1 | R$ 10
+    Exemplo 2 | R$ 8
+    Exemplo 3 | R$ 7
+    Exemplo 4 | R$ 8
+    ```
+ - Exemplo da saída: 
+
+    Exemplo   | Valor do exemplo
+    --------- | ------
+    Exemplo 1 | R$ 10
+    Exemplo 2 | R$ 8
+    Exemplo 3 | R$ 7
+    Exemplo 4 | R$ 8
+
+Para especificar o tipo de alinhamento que deseja ter nas tabelas, utilize `:` ao lado do campo horizontal de hífens `---`, na segunda linha da sua tabela. Veja abaixo:
+
+###### *Alinhado à esquerda*:
+
+ Usar `:` no lado esquerdo (alinhamento padrão).
+  - Exemplo da escrita:
+    ```
+    | Alinhado à esquerda |
+    | :---------- |
+    | Valor |
+    ```
+ - Exemplo da saída: 
+	| Alinhado à esquerda |
+	| :---------- |
+	| Valor |
+
+
+###### *Alinhado à direita*: 
+Usar `:` no lado direito.
+ 
+ - Exemplo da escrita:
+    ```
+    | Alinhado à direita |
+    | -------: |
+    | Valor |
+    ```
+ - Exemplo da saída: 
+
+    | Alinhado à direita |
+    | -------: |
+    | Valor |
+
+###### *Centralizado*: 
+Usar `:` dos dois lados.
+
+ - Exemplo da escrita:
+    ```
+    | Centralizado | 
+    | :------: |
+    | Valor |
+    ```
+ - Exemplo da saída: 
+    | Centralizado | 
+    | :------: |
+    | Valor |
+
 ### Regras para produção de manuais
 
 Para conseguir um bom uso desta ferramenta, algumas regras foram criadas, veja:
