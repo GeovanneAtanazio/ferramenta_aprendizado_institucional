@@ -13,6 +13,139 @@ O Gitbook-CLI funciona com o auxílio do *Distributed Version Control System* (*
 > A equipe do GitBook está focando seus esforços na plataforma [GitBook.com](https://www.gitbook.com/).
 > Apesar disso, o GitBook-CLI continua sendo bastante utilizado por diferentes comunidades.
 
+## Como utilizar esta ferramenta
+
+### O ambiente de desenvolvimento
+
+Para utilizar este projeto é preciso criar um ambiente de desenvolvimento que tenha o Git e o GitBook-CLI instalados. O Git está disponível para os três principais sistemas operacionais utilizados em _desktops_ e _notebooks_ — GNU/Linux, Windows e MacOS. O tutorial de instalação para todos os sistemas operacionais compatíveis pode ser encontrado na página [https://git-scm.com/downloads](https://git-scm.com/downloads). 
+
+Quanto a execução do GitBook-CLI, você não precisa se preocupar em instalá-lo. Está contido neste repositório os arquivos Docker necessários para executar o projeto. Caso prefira, é possível instalar o GitBook-CLI direto no Sistema Operacional (SO) utilizando o gerenciador de pacotes [NPM](https://docs.npmjs.com/about-npm).
+
+#### Ambiente Docker
+
+O Docker é uma plataforma aberta, criada com o objetivo de facilitar o desenvolvimento, a implantação e a execução de aplicações por meio de containers — ambiente isolado que executa o agrupamento de aplicações, bem como suas dependências, utilizando o *kernel* do SO do *host*. 
+
+É possível instalar o Docker nos três principais sistemas operacionais utilizados em _desktops_ e _notebooks_ — GNU/Linux, Windows e MacOS. O tutorial de instalação para todos os sistemas operacionais compatíveis pode ser encontrado na página <https://docs.docker.com/get-started/#download-and-install-docker>.
+
+O arquivo Docker necessário para a execução do container é o `Dockerfile`, sendo possível complementá-lo com o `docker-compose.yml`.
+
+##### Utilização do `Dockerfile`
+
+Trata-se do arquivo que contém todos os comandos e variáveis de ambiente que serão chamados por linha de comando para montar a imagem. Através dele já é possível rodar os comandos padrões do Docker e definir as configurações do container que será executado.
+
+###### Utilizando comandos Docker em sua rotina de desenvolvimento
+
+Para executar um container com a aplicação, siga os passos a seguir:
+
+1. Na primeira vez que for executar a aplicação, é necessário construir a imagem — esse processo será necessário apenas uma vez. Execute o seguinte comando Docker:
+	```
+	docker build -t nome_imagem:tag .
+	```
+	O nome da imagem gerada (`nome_imagem`) e da versão da imagem (`tag`) devem ser informados pelo executor do comando.
+2. Para executar a aplicação, deverá subir um container da imagem que criou. Para isso, basta executar o comando:
+	```
+	docker run -ti -p 4000:4000 -v diretorio_host:diretorio_container --name nome_container nome_imagem:tag 
+	```
+	O caminho para o diretório do projeto no host (`diretorio_host`), o caminho para o diretório do projeto no container (`diretorio_container`), o nome da imagem (`nome_imagem`), a versão da imagem (`tag`) e o nome do container (`nome_container`) devem ser informados pelo executor do comando.  
+3. Quando quiser atualizar a aplicação de acordo com as mudanças que realizou, execute o comando:
+	```
+	docker restart -t 1 nome_container
+	```
+	O nome do container (`nome_container`) deve ser informado pelo executor do comando.  
+4. Para desativar o container, será necessário executar o comando a seguir: 
+	```
+	docker stop nome_container
+	```
+	O nome do container (`nome_container`) deve ser informado pelo executor do comando.  
+
+##### Utilização do `docker-compose.yml`
+
+Trata-se do arquivo que define configurações a serem aplicadas ao container após ser iniciado, através de diversos atributos. Com ele configurado, é possível utilizar comandos do Docker Compose, que são equivalentes aos do Docker, porém menos verbosos — pois os argumentos necessários já são passados como atributos nesse arquivo.
+
+###### Utilizando comandos Docker Compose em sua rotina de desenvolvimento 
+Para executar um container com a aplicação, siga os passos a seguir:
+
+1. Na primeira vez que for executar a aplicação, é necessário construir a imagem — esse processo será necessário apenas uma vez. Execute o seguinte comando Docker:
+	```
+	docker build -t nome_imagem:tag .
+	```
+	O nome da imagem gerada (`nome_imagem`) e da versão da imagem (`tag`) devem ser informados pelo executor do comando.
+2. Para executar a aplicação, deverá subir um container da imagem que criou. Para isso, basta executar o comando:
+	```
+	docker-compose up
+	```
+3. Quando quiser atualizar a aplicação de acordo com as mudanças que realizou, execute o comando:
+	```
+	docker-compose restart -t 1
+	```
+4. Para desativar o container, será necessário executar o comando a seguir:
+	```
+	docker-compose down
+	```
+
+##### Espelhamento de arquivos
+
+Para usar o Docker como ambiente de desenvolvimento, é importante saber que há um espelhamento entre os arquivos que estão no diretório do *host* e os que estão dentro do container em execução. Isso acontece graças ao _bind-mount_, que é a montagem do diretório do host no container. Dessa forma, independe alterar um arquivo no diretório do *host* ou do container, em ambos os lugares os arquivos serão iguais. Porém, é importante ressaltar que no presente momento o _bind-mount_ apenas funciona ao utilizar os comandos do Docker Compose.
+
+##### Criação de eBooks
+
+Com o GitBook-CLI também é possível gerar eBooks nos formatos PDF, Epub ou Mobi, bastando seguir os passos abaixo:
+
+1. Abra um terminal do container com o comando:
+   ```
+    docker container attach nome_container
+   ```
+2. Existe um comando para geração de cada um dos eBook's suportados. Para gerá-los, basta informar o formato desejado e o nome do arquivo que será gerado.
+	2.1.   Geração de PDF:
+	```
+	gitbook pdf ./ ./pages/public/ebook.pdf
+	```
+	2.2.   Geração de Epub:
+	``` 
+	gitbook epub ./ ./pages/public/ebook.epub 
+	```	
+	2.3.   Geração de Mobi:
+	``` 
+	gitbook mobi ./ ./pages/public/ebook.mobi
+	``` 
+Por conta do _bind-mount_ o eBook gerado dentro do container irá aparecer no diretório do *host*.
+
+#### Ambiente NPM
+
+Para instalar o GitBook-CLI diretamente na sua máquina, basta seguir os passos abaixo:
+1. O Node.js, plataforma de desenvolvimento de aplicações web, e o NPM, gerenciador de pacotes para Node.js, são pré-requisitos para conseguir trabalhar com o  GitBook-CLI. Instale-os em sua máquina utilizando os respectivos links: [https://nodejs.org/](https://nodejs.org/), [https://docs.npmjs.com/downloading-and-installing-node-js-and-npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+2. Também é preciso instalar o GitBook-CLI. Para isso, utilize o comando:
+	```
+	npm install gitbook-cli -g
+	```
+3. Em sua máquina, dentro do diretório que contém os arquivos presentes neste repositório, é preciso instalar as dependências do projeto. Para isso, execute o comando:
+	```
+	gitbook install
+	```
+4. Agora é possível visualizar o manual localmente. Dentro do diretório que contém os arquivos presentes neste repositório, é possível inicializar um servidor local para o projeto por meio do comando:
+	```
+	gitbook serve
+	```
+##### Criação de eBooks
+
+Com o GitBook-CLI também é possível gerar eBooks nos formatos PDF, Epub ou Mobi, bastando seguir os passos abaixo:
+1. O [Calibre eBook Management](https://calibre-ebook.com/) é pré-requisito para conseguir gerar qualquer eBooks do GitBook-CLI. Para instalá-lo, é preciso: 
+1.1 Instalar o Python3 e o PyQt5 utilizando o link: <https://pythonbasics.org/install-pyqt/>; 
+1.2 Instalar o Calibre eBook Management em sua máquina utilizando o link: <https://calibre-ebook.com/download/>.
+2. Existe um comando para geração de cada um dos eBook's suportados. Para gerá-los, basta informar o formato desejado e o nome do arquivo que será gerado.
+    2.1.   Geração de PDF:
+	```
+	gitbook pdf ./ ./pages/public/ebook.pdf
+	```
+	2.2.   Geração de Epub:
+	``` 
+	gitbook epub ./ ./pages/public/ebook.epub 
+	```	
+	2.3.   Geração de Mobi:
+	``` 
+	gitbook mobi ./ ./pages/public/ebook.mobi
+	```
+
 ### Regras para produção de manuais
 
 Para conseguir um bom uso desta ferramenta, algumas regras foram criadas, veja:
