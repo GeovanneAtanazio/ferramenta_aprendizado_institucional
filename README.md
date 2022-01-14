@@ -44,9 +44,9 @@ Para executar um container com a aplicação, siga os passos a seguir:
 	O nome da imagem gerada (`nome_imagem`) e da versão da imagem (`tag`) devem ser informados pelo executor do comando.
 2. Para executar a aplicação, deverá subir um container da imagem que criou. Para isso, basta executar o comando:
 	```
-	docker run -ti -p 4000:4000 -v diretorio_host:diretorio_container --name nome_container nome_imagem:tag 
+	docker run -ti -p 4000:4000 --name nome_container nome_imagem:tag 
 	```
-	O caminho para o diretório do projeto no host (`diretorio_host`), o caminho para o diretório do projeto no container (`diretorio_container`), o nome da imagem (`nome_imagem`), a versão da imagem (`tag`) e o nome do container (`nome_container`) devem ser informados pelo executor do comando.  
+	O nome da imagem (`nome_imagem`), a versão da imagem (`tag`) e o nome do container (`nome_container`) devem ser informados pelo executor do comando.  
 3. Quando quiser atualizar a aplicação de acordo com as mudanças que realizou, execute o comando:
 	```
 	docker restart -t 1 nome_container
