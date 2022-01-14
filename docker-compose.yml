@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    command: >
+      bash -c "gitbook install
+      && gitbook serve"
+    ports:
+      - "4000:4000"
+    working_dir: /var/www/html/gitbook
+    volumes:
+      - .:/var/www/html/gitbook
