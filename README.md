@@ -146,6 +146,208 @@ Com o GitBook-CLI também é possível gerar eBooks nos formatos PDF, Epub ou Mo
 	gitbook mobi ./ ./pages/public/ebook.mobi
 	```
 
+### Configurações iniciais
+
+As configurações do GitBook-CLI são definidas pelo arquivo `book.json`. Nele é possível configurar uma série de atributos da ferramenta. A seguir mostraremos alguns deles, para mais informações acesse <https://github.com/GitbookIO/gitbook/tree/master/docs>. 
+
+#### root
+Define o diretório padrão, nele estarão todos os arquivos do projeto, exceto o `book.json`. Caso esse atributo não seja definido, o diretório `./`  será utilizado por padrão.  
+- Exemplo: 
+	```
+	"root": "./pages"
+	```
+#### structure
+Define o nome dos arquivos considerados estruturais. Neste projeto, a estrutura foi definida da seguinte forma:
+| Atributo | Descrição |
+| :--------: | :-----------: |
+|`readme`|Página inicial do projeto, obrigatório para o funcionamento do GitBook-CLI. Caso esse atributo não seja definido, o arquivo com o nome `README.md` será utilizado por padrão. Caso ele não esteja definido e não exista o arquivo `README.md`, o projeto não será executado.|
+|`summary`|Arquivo responsável por ordenar as páginas do projeto, obrigatório para o funcionamento do GitBook-CLI. Caso esse atributo não seja definido, o arquivo com o nome `SUMMARY.md` será utilizado por padrão. Caso ele não esteja definido e não exista o arquivo `SUMMARY.md`, o projeto não será executado.|
+- Exemplo:
+	```
+	"structure": {
+		"readme": "apresentacao.md",
+		"summary": "sumario.md"
+	}
+	```
+
+#### language
+Define o idioma do projeto.
+- Exemplo: 
+	```
+	"language": "pt"
+	```
+
+#### title
+Define o título do projeto. 
+- Exemplo: 
+	```
+	"title": "Ferramenta de Aprendizado Institucional"
+	```
+
+#### description
+Define uma breve descrição do projeto.
+- Exemplo: 
+	```
+  	"description": "Projeto base da ferramenta de aprendizado institucional"
+	```
+
+#### cover
+Define a capa dos eBooks gerados. Recomenda-se utilizar um arquivo no formato JPEG com a resolução 1800x2360.
+- Exemplo: 
+	```
+	"cover": "public/cover.jpg"
+	```
+#### variables
+Define variáveis globais que podem ser chamadas nos arquivos Markdown.
+- Exemplo: 
+	- Instanciação no arquivo `book.json`
+	```
+	"variables": {
+    	"theme": "ferramenta de aprendizado institucional"
+    }
+	```
+	- Chamada da variável em arquivo Markdown
+	```
+	 Ele condensa o conhecimento acumulado a respeito de {{  book.theme }} e o disponibiliza para todos os membros da organização. 
+	```
+	- Resultado final
+	 ```
+	 Ele condensa o conhecimento acumulado a respeito de ferramenta de aprendizado institucional e o disponibiliza para todos os membros da organização.
+	 ```
+
+#### plugins
+Define a lista de plugins — extensões utilizadas para adicionar novas funcionalidades ao projeto — que serão utilizados ou desativados. Por padrão 6 plugins já vem instalados com o GitBook-CLI, são eles: `"search"`, `"lunr"`, `"highlight"`, `"sharing"`, `"fontsettings"`, `"livereload"`.
+| Plugin | Descrição |
+| :--------: | :-----------:|
+|`"search"`|Adiciona uma barra de pesquisa interativa.|
+|`"lunr"`|Fornece um backend para o plugin `"search"`.|
+|`"highlight"`|Adiciona destaque em blocos de código.|
+|`"sharing"`|Adiciona botões de compartilhamento na barra de ferramentas do site GitBook-CLI para compartilhar livros nas redes sociais.|
+|`"fontsettings"`|Disponibiliza estilização da fonte e do tema do GitBook-CLI.|
+|`"livereload"`|Recarrega o GitBook-CLI em tempo real.|
+
+Alguns plugins padrões precisaram ser desativados para possibilitar o uso de outros similares, mas com novas funcionalidades. Neste projeto, os seguintes plugins precisaram ser desativados:
+
+| Plugin Nativo | Plugin Substituto |
+| :--------: |:-----------: |
+|`"lunr"`|`"search-pro"`|
+|`"search"`|`"search-pro"`|
+|`"sharing"`|`"sharing-plus"`|
+
+Além dos citados acima foram utilizados os seguintes plugins:
+| Plugin | Descrição |
+| :--------: | :-----------: |
+|`"anchor-navigation-ex"`|Adiciona âncoras de navegação em cada um dos capítulos.|
+|`"code"`|Numera as linhas dos blocos de código e adiciona o botão "Copiar Código".|
+|`"download-pdf-link"`|Adiciona um *link* em cada página para baixar PDF.|
+|`"github"`|Adiciona o ícone do github no canto superior direito.|
+|`"search-pro"`|Fornece pesquisa em qualquer caractere (utf-8) e destaca o resultado da busca no GitBook-CLI.|
+|`"mermaid-gb3"`|Renderiza código Mermaid — útil para criar e visualizar diagramas usando texto e código —  detectados no markdown do livro.|
+|`"sharing-plus"`|Adiciona botões de compartilhamento na barra de ferramentas do site GitBook para compartilhar livros nas redes sociais, sendo seu diferencial o maior número de redes quando comparado ao seu antecessor, o plugin `"sharing"`.|
+|`"splitter"`|Torna a largura da barra lateral ajustável.|
+|`"tbfed-pagefooter"`|Adiciona um rodapé a página.|
+
+Para instalar novos plugins, basta adicionar seus nomes dentro da lista de plugins e executar o comando:
+ 
+ ```
+ gitbook install
+ ```
+
+### pluginsConfig
+
+Define a configuração do plugin quando for necessário — não são todos os plugins que necessitam dessa configuração adicional. O bloco de configuração começa com `"pluginsConfig": { }` onde dentro das chaves se inicia um novo bloco, esse agora com o nome do plugin, com uma estrutura de chave e valor para definir os seus parâmetros.
+
+- Exemplo:
+	```
+	"pluginsConfig": {
+		"download-pdf-link": {
+			"base": "https://github.com/GeovanneAtanazio/ferramenta_aprendizado_institucional/blob/main/pages/public/ebook.pdf"
+		},
+		"fontsettings": {
+			"theme": "sepia"
+		},
+		"sharing": {
+			"douban":false,
+			"facebook":false,
+			"google":false,
+			"line":false,
+			"qq":false,
+			"qzone":false,
+			"weibo":false,
+			"whatsapp":false,
+			"all": ["twitter","linkedin","whatsapp","facebook"]
+		},
+		"github":{
+			"url": "https://github.com/GeovanneAtanazio/ferramenta_aprendizado_institucional"
+		},
+		"tbfed-pagefooter": {
+			"copyright":"Copyright &copy 2022 Geovanne Atanazio",
+			"modify_label": "Arquivo revisado pela última vez em",
+			"modify_format": "DD/MM/YYYY"
+		}
+  	}
+	```
+
+
+#### download-pdf-link: 
+A chave ``"base"`` define o link para o download do pdf.
+
+- Exemplo:
+	```
+		"download-pdf-link": {
+			"base": "https://github.com/GeovanneAtanazio/ferramenta_aprendizado_institucional/blob/main/pages/public/ebook.pdf"
+		}
+	```
+
+#### fontsettings: 
+A chave ``"theme"`` define o tema padrão do gitbook caso o usuário não tenha selecionado anteriormente.
+- Exemplo:
+	```
+		"fontsettings": {
+			"theme": "sepia"
+		}
+	```
+
+#### sharing: 
+
+A chave ``"nome_da_rede_social"`` pode assumir ``"true"`` para ativo e assim será exibida na barra de ferramentas do site e ``"false"`` para desativado quando não precisar ser exibida. Já para a chave ```"all"``` deve ser usado um array com todas as redes que serão exibidas ao clicar no botão *share* localizado na barra de ferramentas.
+
+- Exemplo:
+	```
+		"sharing": {
+			"douban":false,
+			"facebook":false,
+			"google":false,
+			"line":false,
+			"qq":false,
+			"qzone":false,
+			"weibo":false,
+			"whatsapp":false,
+			"all": ["twitter","linkedin","whatsapp","facebook"]
+    	}
+	```
+
+#### github: 
+A chave ``"url"`` define um link para ser adicionado ao ícone do GitHub na barra de ferramentas do site GitBook.
+- Exemplo:
+	```
+		"github":{
+      		"url": "https://github.com/GeovanneAtanazio/ferramenta_aprendizado_institucional"
+    	}
+	```
+
+#### tbfed-pagefooter:
+ A chave ``"copyright"`` define a mensagem de Copyright que será exibida no rodapé da página. As chaves ``"modify_label"`` e  ``"modify_format"`` definem o texto e a data com a última revisão do arquivo também a ser exibida no rodapé da página.
+
+ - Exemplo:
+	```
+		"tbfed-pagefooter": {
+			"copyright":"Copyright &copy 2022 Geovanne Atanazio",
+			"modify_label": "Arquivo revisado pela última vez em",
+			"modify_format": "DD/MM/YYYY"
+    	}
+	```
+
 ### Regras para produção de manuais
 
 Para conseguir um bom uso desta ferramenta, algumas regras foram criadas, veja:
