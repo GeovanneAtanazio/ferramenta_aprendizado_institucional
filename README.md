@@ -425,6 +425,7 @@ Envolva o endereço da web entre `<` e `>`. O endereço ficará visível e será
 	Este é um link direto <https://pipz.com/>.
 	```
 - Exemplo da saída: 
+
     Este é um link direto <https://pipz.com/>. 
 
 &nbsp;
