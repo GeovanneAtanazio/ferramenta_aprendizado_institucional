@@ -44,9 +44,9 @@ Para executar um container com a aplicação, siga os passos a seguir:
 	O nome da imagem gerada (`nome_imagem`) e da versão da imagem (`tag`) devem ser informados pelo executor do comando.
 2. Para executar a aplicação, deverá subir um container da imagem que criou. Para isso, basta executar o comando:
 	```
-	docker run -ti -p 4000:4000 --name nome_container nome_imagem:tag 
+	docker run -ti -p 4000:4000 -v diretorio_host:diretorio_container --name nome_container nome_imagem:tag 
 	```
-	O nome da imagem (`nome_imagem`), a versão da imagem (`tag`) e o nome do container (`nome_container`) devem ser informados pelo executor do comando.  
+	O caminho para o diretório do projeto no host (`diretorio_host`), o caminho para o diretório do projeto no container (`diretorio_container`), o nome da imagem (`nome_imagem`), a versão da imagem (`tag`) e o nome do container (`nome_container`) devem ser informados pelo executor do comando.  
 3. Quando quiser atualizar a aplicação de acordo com as mudanças que realizou, execute o comando:
 	```
 	docker restart -t 1 nome_container
@@ -385,7 +385,7 @@ A titulação em Markdown é graduada em 6 níveis e é feita utilizando o símb
     ##### Título 5
     ###### Título 6
 
- $ ~ $    
+&nbsp;    
 
 <a id="enfase"></a>
 ##### Ênfase (Negrito ou Itálico)
@@ -405,10 +405,14 @@ Para adicionar ênfase ao conteúdo que será escrito, usa-se o asterisco `*` ou
 
     *Usa-se apenas um asterisco para itálico*
     _Usa-se apenas um underline para itálico_
- $ ~ $     
+
+&nbsp;     
+
      **Usa-se dois asteriscos para negrito**
     __Usa-se dois underlines para negrito__
- $ ~ $    
+
+&nbsp;    
+
 ##### Links 
 
 Existem duas formas de inserir link em Markdown, através de um link direto ou usando um texto-âncora:
@@ -421,19 +425,22 @@ Envolva o endereço da web entre `<` e `>`. O endereço ficará visível e será
 	Este é um link direto <https://pipz.com/>.
 	```
 - Exemplo da saída: 
-    Este é um link direto <https://pipz.com/>.
- $ ~ $  
+    Este é um link direto <https://pipz.com/>. 
+
+&nbsp;
+
 ###### Texto-âncora
  Utilize os caracteres `[]()`, adicionando entre chaves o texto que você quer que apareça, e entre os parênteses, o endereço de destino.
 
 - Exemplo da escrita: 
 	```
 	Este é um [link em formato de texto](https://exemplo.com/).
-
 	```
 - Exemplo da saída: 
     Este é um [link em formato de texto](https://exemplo.com/).
- $ ~ $  
+
+&nbsp;  
+
 ###### Referência cruzada (âncora nomeada)
 
 Trata-se de outra forma de texto âncora, utilizada para fazer referência a outros elementos do próprio arquivo Markdown. Para isso, basta inserir uma tag `<a>` com o id para identificar aquela seção e então usá-lo entre os parenteses como "endereço interno de destino".
@@ -444,15 +451,11 @@ Trata-se de outra forma de texto âncora, utilizada para fazer referência a out
 
   ###### _Escrita da âncora_
 	```
-	
     <a id="enfase"></a>
-
 	```
     ###### _Chamada_
     ```
-	
     Este é uma [referência cruzada que leva para a seção ênfase](<#enfase>).
-
 	```
 
 - Exemplo da saída: 
@@ -492,17 +495,17 @@ Para listas ordenadas, utilize o número do item seguido de ponto `.`. Nas lista
 	4. Item 4
     ```
 - Exemplo da saída: 
-     1. Item 1
+  
+    1. Item 1 
     2. Item 2
-    3. Item 3
-       3.1. Item 3.1
-	4. Item 4
+    3. Item 3    
+        3.1. Item 3.1 
+    4. Item 4
 
 ##### Imagens
 
 O código para inserir uma imagem no conteúdo é semelhante ao código de inserir links-âncora, adicionando um ponto de exclamação `!` no início do código.
 
-[//]: #teste 
 
 - Exemplo da escrita:
    
@@ -511,7 +514,8 @@ O código para inserir uma imagem no conteúdo é semelhante ao código de inser
     ```
 
 - Exemplo da saída: 
- ![Esta é uma imagem inserida a partir do link](https://dtdsgp.com/wp-content/uploads/2020/05/news1.png)
+  
+    ![Esta é uma imagem inserida a partir do link](https://dtdsgp.com/wp-content/uploads/2020/05/news1.png)
 
  ##### Citação (Quote)
 
@@ -544,10 +548,12 @@ Adicione um acento grave `ˋ` no início e no final do código.
 	```
 - Exemplo da saída: 
 Esta é uma linha que contém um `código`.
-  $ ~ $
+
+ &nbsp;
+
 ###### *Múltiplas linhas de código*
 Envolva as linhas de código com três acentos graves ``ˋˋˋ`` ou três tils ``~~~``.
-   $ ~ $
+
 
  - Exemplo da escrita:
 
@@ -572,14 +578,18 @@ Para gerar uma quebra de linha no documento existem algumas alternativas, uma de
   
 	```
 	O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão.
-	$ ~ $
+    
+	&nbsp; 
+
 	O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500.
 	```
 
 - Exemplo da saída:
 	
 	O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão.
-	$ ~ $
+
+    &nbsp; 
+
 	O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500.
 
 
@@ -695,6 +705,3 @@ Para conseguir um bom uso desta ferramenta, algumas regras foram criadas, veja:
 - <https://docs.pipz.com/central-de-ajuda/learning-center/guia-basico-de-markdown#open>. Acesso em: jan. 2022.
 - <https://github.com/badtuxx/DescomplicandoDocker>. Acesso em: jan. 2022.
 - <https://docs.docker.com/>. Acesso em: jan. 2022.
-
-
-
