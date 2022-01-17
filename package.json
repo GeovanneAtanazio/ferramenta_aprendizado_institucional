@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "colors": "^1.4.0",
-    "gitbook-plugin-back-to-top-button": "^0.1.4",
-    "gitbook-plugin-download-pdf-link": "^2.0.0",
-    "gitbook-plugin-livereload": "0.0.1",
-    "gitbook-plugin-sharing-plus": "^0.0.2"
-  }
-}
