@@ -615,7 +615,7 @@ Para criar tabelas utiliza-se ``|`` para delimitar as colunas e o hífen ``-`` n
     Exemplo 3 | R$ 7
     Exemplo 4 | R$ 8
 
-Para especificar o tipo de alinhamento que deseja ter nas tabelas, utilize `:` ao lado do campo horizontal de hífens `---`, na segunda linha da sua tabela. Veja abaixo:
+Para especificar o tipo de alinhamento que deseja ter nas tabelas, utilize `:` ao lado do campo horizontal de hifens `---`, na segunda linha da sua tabela. Veja abaixo:
 
 ###### *Alinhado à esquerda*:
 
