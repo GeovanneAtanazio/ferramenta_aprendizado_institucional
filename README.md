@@ -486,23 +486,22 @@ Para listas não ordenadas, utilize um asterisco `*` ou `-` na frente do item da
 ###### Listas ordenadas
 
 Para listas ordenadas, utilize o número do item seguido de ponto `.`. Nas listas em Markdown a indentação do item gera subitens  :
+
 - Exemplo da escrita:
 
     ```
     1. Item 1
     2. Item 2
     3. Item 3
-       3.1. Item 3.1
-	4. Item 4
+    4. Item 4
     ```
 - Exemplo da saída: 
   
-    1. Item 1 
-    2. Item 2
-    3. Item 3    
-        3.1. Item 3.1 
-    4. Item 4
-
+  1. Item 1 
+  2. Item 2
+  3. Item 3    
+  4. Item 4
+   
 ##### Imagens
 
 O código para inserir uma imagem no conteúdo é semelhante ao código de inserir links-âncora, adicionando um ponto de exclamação `!` no início do código.
