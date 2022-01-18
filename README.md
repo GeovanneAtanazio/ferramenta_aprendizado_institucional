@@ -87,7 +87,7 @@ Para executar um container com a aplicação, siga os passos a seguir:
 
 Para usar o Docker como ambiente de desenvolvimento, é importante saber que há um espelhamento entre os arquivos que estão no diretório do *host* e os que estão dentro do container em execução. Isso acontece graças ao _bind-mount_, que é a montagem do diretório do host no container. Dessa forma, independe alterar um arquivo no diretório do *host* ou do container, em ambos os lugares os arquivos serão iguais. Porém, é importante ressaltar que no presente momento o _bind-mount_ apenas funciona ao utilizar os comandos do Docker Compose.
 
-##### Criação de eBooks
+##### Criação de eBooks 	<a id="pdfdocker"></a>
 
 Com o GitBook-CLI também é possível gerar eBooks nos formatos PDF, Epub ou Mobi, bastando seguir os passos abaixo:
 
@@ -96,7 +96,7 @@ Com o GitBook-CLI também é possível gerar eBooks nos formatos PDF, Epub ou Mo
     docker container attach nome_container
    ```
 2. Existe um comando para geração de cada um dos eBook's suportados. Para gerá-los, basta informar o formato desejado e o nome do arquivo que será gerado.
-	2.1.   Geração de PDF:
+	2.1.   Geração de PDF: 	
 	```
 	gitbook pdf ./ ./pages/public/ebook.pdf
 	```
@@ -126,7 +126,7 @@ Para instalar o GitBook-CLI diretamente na sua máquina, basta seguir os passos 
 	```
 	gitbook serve
 	```
-##### Criação de eBooks
+##### Criação de eBooks <a id="pdfnpm"></a>
 
 Com o GitBook-CLI também é possível gerar eBooks nos formatos PDF, Epub ou Mobi, bastando seguir os passos abaixo:
 1. O [Calibre eBook Management](https://calibre-ebook.com/) é pré-requisito para conseguir gerar qualquer eBooks do GitBook-CLI. Para instalá-lo, é preciso: 
@@ -242,7 +242,7 @@ Além dos citados acima foram utilizados os seguintes plugins:
 |`"download-pdf-link"`|Adiciona um *link* em cada página para baixar PDF.|
 |`"github"`|Adiciona o ícone do github no canto superior direito.|
 |`"search-pro"`|Fornece pesquisa em qualquer caractere (utf-8) e destaca o resultado da busca no GitBook-CLI.|
-|`"mermaid-gb3"`|Renderiza código Mermaid — útil para criar e visualizar diagramas usando texto e código —  detectados no markdown do livro.|
+|`"mermaid-gb3"`|Renderiza código Mermaid — útil para criar e visualizar diagramas usando texto e código —  detectados no markdown do livro. O plugin não funciona quando gerado o PDF, seja no [Docker](<#pdfdocker>) ou no ambiente [NPM](<#pdfnpm>).|
 |`"sharing-plus"`|Adiciona botões de compartilhamento na barra de ferramentas do site GitBook para compartilhar livros nas redes sociais, sendo seu diferencial o maior número de redes quando comparado ao seu antecessor, o plugin `"sharing"`.|
 |`"splitter"`|Torna a largura da barra lateral ajustável.|
 |`"tbfed-pagefooter"`|Adiciona um rodapé a página.|
