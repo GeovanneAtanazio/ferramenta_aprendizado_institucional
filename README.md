@@ -682,10 +682,24 @@ Para conseguir um bom uso desta ferramenta, algumas regras foram criadas, veja:
 	git pull upstream main
 	git push origin main
 	```
+	
 ### Publicação do manual 
 <a id="publicacao_do_manual"></a>
 
+Para criar um página estática para ser usada em um ambiente de produção, basta utilizar o comando:
 
+```
+ gitbook build
+```
+
+Outra forma de publicar o projeto é utilizando o GitHub como servidor da página. Para isso, é preciso seguir a seguinte sequencia de passos:
+
+1. Certifique-se que o projeto está hospedado em um repositório publico;
+2. Crie uma nova *branch* chamaga `gh-pages` contendo apenas o arquivo `README.md`;
+3. Dentro do repositório, no GitHub, entre na aba `Settings`. Em seguida selecione a opção `pages`;
+4. Em `Source` selecione a branch `gh-pages` e o diretório `/(root)`, Com isso o GitHub automaticamente irá criar um link de acesso ao seu projeto do GitBook-CLI;
+5. Para publicar uma nova versão do GitBook-CLI, basta executar o arquivo [
+publish.sh](publish.sh) com permissões de administrador. Nele, encontra-se um *sript* que irá publicar o projeto na *branch* `gh-pages`, que será utilizada pelo link gerado na etapa 4. 
 
 ## Fontes
 
