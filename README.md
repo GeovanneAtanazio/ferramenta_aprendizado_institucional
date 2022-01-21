@@ -44,9 +44,9 @@ Para executar um container com a aplicação, siga os passos a seguir:
 	O nome da imagem gerada (`nome_imagem`) e da versão da imagem (`tag`) devem ser informados pelo executor do comando.
 2. Para executar a aplicação, deverá subir um container da imagem que criou. Para isso, basta executar o comando:
 	```
-	docker run -ti -p 4000:4000 --name nome_container nome_imagem:tag 
+	docker run -ti -p 4000:4000 -v diretorio_host:diretorio_container --name nome_container nome_imagem:tag 
 	```
-	O nome da imagem (`nome_imagem`), a versão da imagem (`tag`) e o nome do container (`nome_container`) devem ser informados pelo executor do comando.  
+	O caminho para o diretório do projeto no host (`diretorio_host`), o caminho para o diretório do projeto no container (`diretorio_container`), o nome da imagem (`nome_imagem`), a versão da imagem (`tag`) e o nome do container (`nome_container`) devem ser informados pelo executor do comando.  
 3. Quando quiser atualizar a aplicação de acordo com as mudanças que realizou, execute o comando:
 	```
 	docker restart -t 1 nome_container
@@ -87,7 +87,7 @@ Para executar um container com a aplicação, siga os passos a seguir:
 
 Para usar o Docker como ambiente de desenvolvimento, é importante saber que há um espelhamento entre os arquivos que estão no diretório do *host* e os que estão dentro do container em execução. Isso acontece graças ao _bind-mount_, que é a montagem do diretório do host no container. Dessa forma, independe alterar um arquivo no diretório do *host* ou do container, em ambos os lugares os arquivos serão iguais. Porém, é importante ressaltar que no presente momento o _bind-mount_ apenas funciona ao utilizar os comandos do Docker Compose.
 
-##### Criação de eBooks
+##### Criação de eBooks 	<a id="pdfdocker"></a>
 
 Com o GitBook-CLI também é possível gerar eBooks nos formatos PDF, Epub ou Mobi, bastando seguir os passos abaixo:
 
@@ -96,7 +96,7 @@ Com o GitBook-CLI também é possível gerar eBooks nos formatos PDF, Epub ou Mo
     docker container attach nome_container
    ```
 2. Existe um comando para geração de cada um dos eBook's suportados. Para gerá-los, basta informar o formato desejado e o nome do arquivo que será gerado.
-	2.1.   Geração de PDF:
+	2.1.   Geração de PDF: 	
 	```
 	gitbook pdf ./ ./pages/public/ebook.pdf
 	```
@@ -126,7 +126,7 @@ Para instalar o GitBook-CLI diretamente na sua máquina, basta seguir os passos 
 	```
 	gitbook serve
 	```
-##### Criação de eBooks
+##### Criação de eBooks <a id="pdfnpm"></a>
 
 Com o GitBook-CLI também é possível gerar eBooks nos formatos PDF, Epub ou Mobi, bastando seguir os passos abaixo:
 1. O [Calibre eBook Management](https://calibre-ebook.com/) é pré-requisito para conseguir gerar qualquer eBooks do GitBook-CLI. Para instalá-lo, é preciso: 
@@ -242,7 +242,7 @@ Além dos citados acima foram utilizados os seguintes plugins:
 |`"download-pdf-link"`|Adiciona um *link* em cada página para baixar PDF.|
 |`"github"`|Adiciona o ícone do github no canto superior direito.|
 |`"search-pro"`|Fornece pesquisa em qualquer caractere (utf-8) e destaca o resultado da busca no GitBook-CLI.|
-|`"mermaid-gb3"`|Renderiza código Mermaid — útil para criar e visualizar diagramas usando texto e código —  detectados no markdown do livro.|
+|`"mermaid-gb3"`|Renderiza código Mermaid — útil para criar e visualizar diagramas usando texto e código —  detectados no markdown do livro. O plugin não funciona quando gerado o PDF, seja no [Docker](<#pdfdocker>) ou no ambiente [NPM](<#pdfnpm>).|
 |`"sharing-plus"`|Adiciona botões de compartilhamento na barra de ferramentas do site GitBook para compartilhar livros nas redes sociais, sendo seu diferencial o maior número de redes quando comparado ao seu antecessor, o plugin `"sharing"`.|
 |`"splitter"`|Torna a largura da barra lateral ajustável.|
 |`"tbfed-pagefooter"`|Adiciona um rodapé a página.|
@@ -385,7 +385,7 @@ A titulação em Markdown é graduada em 6 níveis e é feita utilizando o símb
     ##### Título 5
     ###### Título 6
 
- $ ~ $    
+&nbsp;    
 
 <a id="enfase"></a>
 ##### Ênfase (Negrito ou Itálico)
@@ -405,10 +405,14 @@ Para adicionar ênfase ao conteúdo que será escrito, usa-se o asterisco `*` ou
 
     *Usa-se apenas um asterisco para itálico*
     _Usa-se apenas um underline para itálico_
- $ ~ $     
+
+&nbsp;     
+
      **Usa-se dois asteriscos para negrito**
     __Usa-se dois underlines para negrito__
- $ ~ $    
+
+&nbsp;    
+
 ##### Links 
 
 Existem duas formas de inserir link em Markdown, através de um link direto ou usando um texto-âncora:
@@ -421,19 +425,23 @@ Envolva o endereço da web entre `<` e `>`. O endereço ficará visível e será
 	Este é um link direto <https://pipz.com/>.
 	```
 - Exemplo da saída: 
-    Este é um link direto <https://pipz.com/>.
- $ ~ $  
+
+    Este é um link direto <https://pipz.com/>. 
+
+&nbsp;
+
 ###### Texto-âncora
  Utilize os caracteres `[]()`, adicionando entre chaves o texto que você quer que apareça, e entre os parênteses, o endereço de destino.
 
 - Exemplo da escrita: 
 	```
 	Este é um [link em formato de texto](https://exemplo.com/).
-
 	```
 - Exemplo da saída: 
     Este é um [link em formato de texto](https://exemplo.com/).
- $ ~ $  
+
+&nbsp;  
+
 ###### Referência cruzada (âncora nomeada)
 
 Trata-se de outra forma de texto âncora, utilizada para fazer referência a outros elementos do próprio arquivo Markdown. Para isso, basta inserir uma tag `<a>` com o id para identificar aquela seção e então usá-lo entre os parenteses como "endereço interno de destino".
@@ -444,15 +452,11 @@ Trata-se de outra forma de texto âncora, utilizada para fazer referência a out
 
   ###### _Escrita da âncora_
 	```
-	
     <a id="enfase"></a>
-
 	```
     ###### _Chamada_
     ```
-	
     Este é uma [referência cruzada que leva para a seção ênfase](<#enfase>).
-
 	```
 
 - Exemplo da saída: 
@@ -482,27 +486,26 @@ Para listas não ordenadas, utilize um asterisco `*` ou `-` na frente do item da
 ###### Listas ordenadas
 
 Para listas ordenadas, utilize o número do item seguido de ponto `.`. Nas listas em Markdown a indentação do item gera subitens  :
+
 - Exemplo da escrita:
 
     ```
     1. Item 1
     2. Item 2
     3. Item 3
-       3.1. Item 3.1
-	4. Item 4
+    4. Item 4
     ```
 - Exemplo da saída: 
-     1. Item 1
-    2. Item 2
-    3. Item 3
-       3.1. Item 3.1
-	4. Item 4
-
+  
+  1. Item 1 
+  2. Item 2
+  3. Item 3    
+  4. Item 4
+   
 ##### Imagens
 
 O código para inserir uma imagem no conteúdo é semelhante ao código de inserir links-âncora, adicionando um ponto de exclamação `!` no início do código.
 
-[//]: #teste 
 
 - Exemplo da escrita:
    
@@ -511,7 +514,8 @@ O código para inserir uma imagem no conteúdo é semelhante ao código de inser
     ```
 
 - Exemplo da saída: 
- ![Esta é uma imagem inserida a partir do link](https://dtdsgp.com/wp-content/uploads/2020/05/news1.png)
+  
+    ![Esta é uma imagem inserida a partir do link](https://dtdsgp.com/wp-content/uploads/2020/05/news1.png)
 
  ##### Citação (Quote)
 
@@ -544,10 +548,12 @@ Adicione um acento grave `ˋ` no início e no final do código.
 	```
 - Exemplo da saída: 
 Esta é uma linha que contém um `código`.
-  $ ~ $
+
+ &nbsp;
+
 ###### *Múltiplas linhas de código*
 Envolva as linhas de código com três acentos graves ``ˋˋˋ`` ou três tils ``~~~``.
-   $ ~ $
+
 
  - Exemplo da escrita:
 
@@ -572,14 +578,18 @@ Para gerar uma quebra de linha no documento existem algumas alternativas, uma de
   
 	```
 	O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão.
-	$ ~ $
+    
+	&nbsp; 
+
 	O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500.
 	```
 
 - Exemplo da saída:
 	
 	O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão.
-	$ ~ $
+
+    &nbsp; 
+
 	O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500.
 
 
@@ -604,7 +614,7 @@ Para criar tabelas utiliza-se ``|`` para delimitar as colunas e o hífen ``-`` n
     Exemplo 3 | R$ 7
     Exemplo 4 | R$ 8
 
-Para especificar o tipo de alinhamento que deseja ter nas tabelas, utilize `:` ao lado do campo horizontal de hífens `---`, na segunda linha da sua tabela. Veja abaixo:
+Para especificar o tipo de alinhamento que deseja ter nas tabelas, utilize `:` ao lado do campo horizontal de hifens `---`, na segunda linha da sua tabela. Veja abaixo:
 
 ###### *Alinhado à esquerda*:
 
@@ -672,10 +682,24 @@ Para conseguir um bom uso desta ferramenta, algumas regras foram criadas, veja:
 	git pull upstream main
 	git push origin main
 	```
+	
 ### Publicação do manual 
 <a id="publicacao_do_manual"></a>
 
+Para criar um página estática para ser usada em um ambiente de produção, basta utilizar o comando:
 
+```
+ gitbook build
+```
+
+Outra forma de publicar o projeto é utilizando o GitHub como servidor da página. Para isso, é preciso seguir a seguinte sequencia de passos:
+
+1. Certifique-se que o projeto está hospedado em um repositório publico;
+2. Crie uma nova *branch* chamaga `gh-pages` contendo apenas o arquivo `README.md`;
+3. Dentro do repositório, no GitHub, entre na aba `Settings`. Em seguida selecione a opção `pages`;
+4. Em `Source` selecione a branch `gh-pages` e o diretório `/(root)`, Com isso o GitHub automaticamente irá criar um link de acesso ao seu projeto do GitBook-CLI;
+5. Para publicar uma nova versão do GitBook-CLI, basta executar o arquivo [
+publish.sh](publish.sh) com permissões de administrador. Nele, encontra-se um *sript* que irá publicar o projeto na *branch* `gh-pages`, que será utilizada pelo link gerado na etapa 4. 
 
 ## Fontes
 
@@ -695,6 +719,3 @@ Para conseguir um bom uso desta ferramenta, algumas regras foram criadas, veja:
 - <https://docs.pipz.com/central-de-ajuda/learning-center/guia-basico-de-markdown#open>. Acesso em: jan. 2022.
 - <https://github.com/badtuxx/DescomplicandoDocker>. Acesso em: jan. 2022.
 - <https://docs.docker.com/>. Acesso em: jan. 2022.
-
-
-
